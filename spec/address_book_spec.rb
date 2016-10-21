@@ -3,8 +3,8 @@ require_relative '../models/address_book'
 RSpec.describe AddressBook do
     
     let(:book) { AddressBook.new }
-    
-    describe check_entry(entry, expected_name, expected_number, expected_email)
+    # this helper method checks each entry
+    def check_entry(entry, expected_name, expected_number, expected_email)
         expect(entry.name).to eq expected_name
         expect(entry.phone_number).to eq expected_number
         expect(entry.email).to eq expected_email
@@ -14,7 +14,6 @@ RSpec.describe AddressBook do
     
     describe "attributes" do
         it "responds to entries" do
-            book = AddressBook.new
             expect(book).to respond_to(:entries)
         end
         
@@ -88,6 +87,35 @@ RSpec.describe AddressBook do
             # Check the fifth entry
             entry_five = book.entries[4]
             check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
+        end
+    
+    
+    
+        it "imports the correct number of entries" do
+            book.import_from_csv("entries_2.csv")
+            
+            expect(book.entries.size).to eq(3)
+        end
+        
+        it "imports the 1st entry" do
+            book.import_from_csv("entries_2.csv")
+            # Check the first entry
+            entry_one = book.entries[0]
+            check_entry(entry_one, "Bill", "555-555-4854", "bill@blocmail.com")
+        end
+        
+        it "imports the 2nd entry" do
+            book.import_from_csv("entries_2.csv")
+            # Check the second entry
+            entry_two = book.entries[1]
+            check_entry(entry_two, "Bob", "555-555-5415", "bob@blocmail.com")
+        end
+  
+        it "imports the 3rd entry" do
+            book.import_from_csv("entries_2.csv")
+            # Check the third entry
+            entry_three = book.entries[2]
+            check_entry(entry_three, "Joe", "555-555-3660", "joe@blocmail.com")
         end
     end
 end
