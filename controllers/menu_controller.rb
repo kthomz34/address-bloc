@@ -43,7 +43,8 @@ class MenuController
                 exit(0)
             when 6
                 system "clear"
-                nuke
+                address_book.nuke
+                puts "Everything is nuked"
                 main_menu
             else 
                 system "clear"
@@ -122,10 +123,7 @@ class MenuController
        puts "#{entry.name} has been deleted"
     end
     
-    def nuke(entry)
-        address_book.entries.delete_all
-        puts "No one is left. Everything is destroyed..."
-    end
+    
     
     def edit_entry(entry)
        print "Updated name: " 
